@@ -2,12 +2,13 @@ from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 
-try:
-    from django.contrib.auth import get_user_model
-except ImportError: # Django < 1.5
-    from django.contrib.auth.models import User
-else:
-    User = get_user_model()
+# try:
+#     from django.contrib.auth import get_user_model
+# except ImportError: # Django < 1.5
+#     from django.contrib.auth.models import User
+# else:
+#     User = get_user_model()
+from mongoengine.django.auth import User
 
 from tokenapi.tokens import token_generator
 from tokenapi.http import JsonResponse, JsonError, JsonResponseForbidden, JsonResponseUnauthorized
@@ -34,7 +35,7 @@ def token_new(request):
 
                 data = {
                     'token': token_generator.make_token(user),
-                    'user': user.pk,
+                    'user': user.username,
                 }
                 return JsonResponse(data)
             else:
@@ -50,7 +51,7 @@ def token_new(request):
 # Returns: success
 def token(request, token, user):
     try:
-        user = User.objects.get(pk=user)
+        user = User.objects.get(username=user)
     except User.DoesNotExist:
         return JsonError("User does not exist.")
 

@@ -1,19 +1,21 @@
-from django.contrib.auth.backends import ModelBackend
+# from django.contrib.auth.backends import ModelBackend
 from tokenapi.tokens import token_generator
 from django.conf import settings
 
-try:
-    from django.contrib.auth import get_user_model
-except ImportError: # Django < 1.5
-    from django.contrib.auth.models import User
-else:
-    User = get_user_model()
+# try:
+#     from django.contrib.auth import get_user_model
+# except ImportError: # Django < 1.5
+#     from django.contrib.auth.models import User
+# else:
+#     User = get_user_model()
+from mongoengine.django.auth import User, MongoEngineBackend
 
 
-class TokenBackend(ModelBackend):
+
+class TokenBackend(MongoEngineBackend):
     def authenticate(self, pk, token):
         try:
-            user = User.objects.get(pk=pk)
+            user = User.objects.get(username=pk)
         except User.DoesNotExist:
             return None
 
