@@ -38,7 +38,7 @@ regular installation or use [pip][]:
 
 Add `tokenapi` to your `INSTALLED_APPS`.
 
-Ensure that `django.contrib.auth.backends.ModelBackend` is in your `AUTHENTICATION_BACKENDS`.
+Ensure that `mongoengine.django.auth.MongoEngineBackend` is in your `AUTHENTICATION_BACKENDS`.
 
 Add `tokenapi.backends.TokenBackend` to your `AUTHENTICATION_BACKENDS`.
 
