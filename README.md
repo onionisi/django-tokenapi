@@ -40,7 +40,7 @@ Add `tokenapi` to your `INSTALLED_APPS`.
 
 Ensure that `mongoengine.django.auth.MongoEngineBackend` is in your `AUTHENTICATION_BACKENDS`.
 
-Add `tokenapi.backends.TokenBackend` to your `AUTHENTICATION_BACKENDS`.
+Add `tokenapi.backends.TokenBackend` to your `AUTHENTICATION_BACKENDS`. *NO NEED NOW*
 
 Include `tokenapi.urls` in your `urls.py`. It will look something like this:
 
